@@ -1,5 +1,4 @@
 'use client'
-
 import EditorJS from '@editorjs/editorjs'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { usePathname, useRouter } from 'next/navigation'
@@ -59,10 +58,8 @@ export const Editor: React.FC<EditorProps> = ({ subredditId }) => {
       })
     },
     onSuccess: () => {
-      // turn pathname /r/mycommunity/submit into /r/mycommunity
       const newPathname = pathname.split('/').slice(0, -1).join('/')
       router.push(newPathname)
-
       router.refresh()
 
       return toast({
@@ -104,13 +101,14 @@ export const Editor: React.FC<EditorProps> = ({ subredditId }) => {
             config: {
               uploader: {
                 async uploadByFile(file: File) {
-                  // upload to uploadthing
-                  const [res] = await uploadFiles([file], 'imageUploader')
+                  const [res] = await uploadFiles('imageUploader', {
+                    files: [file],
+                  })
 
                   return {
                     success: 1,
                     file: {
-                      url: res.fileUrl,
+                      url: res.url, // Ensure `fileUrl` matches your server response
                     },
                   }
                 },
