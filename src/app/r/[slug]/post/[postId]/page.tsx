@@ -26,7 +26,6 @@ const SubRedditPostPage = async ({ params }: SubRedditPostPageProps) => {
   )) as CachedPost
 
   let post: (Post & { votes: Vote[]; author: User }) | null = null
-
   if (!cachedPost) {
     post = await db.post.findFirst({
       where: {
@@ -38,6 +37,7 @@ const SubRedditPostPage = async ({ params }: SubRedditPostPageProps) => {
       },
     })
   }
+
 
   if (!post && !cachedPost) return notFound()
 
