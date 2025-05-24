@@ -26,7 +26,15 @@ const style = {
   },
 }
 
-const EditorOutput: FC<EditorOutputProps> = ({ content }) => {
+/**
+ * EditorOutput is a functional component that renders content using a dynamic
+ * Output component with custom styles and renderers for images and code blocks.
+ * 
+ * @param {EditorOutputProps} content - The content to be rendered, expected to
+ * be in a format compatible with the Output component.
+ */
+
+const EditorOutput: FC<EditorOutputProps> = ({ content }: EditorOutputProps) => {
   return (
     <Output
       style={style}
